@@ -92,7 +92,9 @@ img {
   gap: 1rem;
   padding: 1.1rem 5vw;
   backdrop-filter: blur(22px);
-  background: rgba(5, 8, 15, 0.65);
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
   border-bottom: 1px solid rgba(107, 125, 255, 0.12);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
@@ -107,13 +109,21 @@ img {
 .site-nav {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  z-index: 2;
   color: var(--muted);
 }
 
 .site-nav a {
   position: relative;
   font-size: 0.95rem;
+.education-soft-skills {
+  margin-top: 1.4rem;
+}
+.education-soft-skills h4 {
+  margin: 0 0 0.9rem;
+  font-size: 1.1rem;
+  color: #f0f4ff;
+}
 }
 
 .site-nav a::after {
@@ -580,10 +590,156 @@ img {
   margin: 0.8rem 0 1rem;
 }
 
+.project-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 255, 255, 0.24);
+  background: linear-gradient(135deg, rgba(0, 255, 255, 0.12), rgba(107, 125, 255, 0.12));
+  color: #eff7ff;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.project-link:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  background: linear-gradient(135deg, rgba(0, 255, 255, 0.18), rgba(198, 68, 255, 0.14));
+  box-shadow: 0 12px 30px rgba(0, 255, 255, 0.12);
+}
+
+.project-link svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  fill: currentColor;
+}
+
+.project-card .project-link {
+  z-index: 2;
+}
+
 .split-section {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.1rem;
+}
+
+.education-panel {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 1.2rem;
+  align-items: stretch;
+  border-radius: var(--radius);
+}
+
+.education-timeline {
+  position: relative;
+  padding: 0.85rem 0 0 1rem;
+}
+
+.education-line {
+  position: absolute;
+  left: 0.35rem;
+  top: 0.15rem;
+  bottom: 0.2rem;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.education-dot {
+  position: absolute;
+  top: -0.15rem;
+  left: 1.54rem;
+  width: 1.15rem;
+  height: 1.15rem;
+  border-radius: 50%;
+  background: #1ba2ea;
+  box-shadow: 0 0 0 0.3rem rgba(27, 162, 234, 0.15);
+}
+
+.education-meta {
+  display: grid;
+  gap: 0.5rem;
+  padding-top: 0.1rem;
+  padding-left: 0.85rem;
+}
+
+.education-meta strong {
+  color: #24b3f2;
+  font-size: 1rem;
+}
+
+.education-meta span {
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.education-card {
+  padding: 2rem;
+}
+
+.education-card h3 {
+  margin: 0;
+  font-size: clamp(1.8rem, 2.8vw, 2.25rem);
+  color: #f6f8ff;
+}
+
+.education-focus {
+  margin: 0.7rem 0 1.1rem;
+  font-size: 1.2rem;
+  color: #7d4dff;
+}
+
+.education-institution {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #dce7ff;
+  font-weight: 600;
+}
+
+.education-details {
+  margin-top: 1.6rem;
+  padding: 1.4rem;
+  border-radius: 22px;
+  background: rgba(4, 9, 22, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.education-gpa {
+  display: inline-flex;
+  margin-bottom: 1.1rem;
+  padding: 0.55rem 0.9rem;
+  border-radius: 12px;
+  background: rgba(0, 140, 255, 0.14);
+  color: #37b8ff;
+  font-weight: 700;
+}
+
+.education-coursework h4 {
+  margin: 0 0 0.9rem;
+  font-size: 1.1rem;
+  color: #f0f4ff;
+}
+
+.education-soft-skills {
+  margin-top: 1.4rem;
+}
+
+.education-soft-skills h4 {
+  margin: 0 0 0.9rem;
+  font-size: 1.1rem;
+  color: #f0f4ff;
+}
+
+.education-tags {
+  gap: 0.65rem;
 }
 
 .contact-card {
@@ -870,6 +1026,10 @@ img {
     grid-template-columns: 1fr;
   }
 
+  .education-panel {
+    grid-template-columns: 1fr;
+  }
+
   .project-card,
   .project-card.featured,
   .cert-card {
@@ -939,6 +1099,15 @@ img {
 
   .contact-container {
     grid-template-columns: 1fr;
+  }
+
+  .education-timeline {
+    min-height: 4rem;
+    padding-left: 1.2rem;
+  }
+
+  .education-dot {
+    left: 1.72rem;
   }
 
   .input-row {
