@@ -1006,6 +1006,17 @@ img {
   box-shadow: 0 30px 70px rgba(107, 125, 255, 0.45);
 }
 
+.info-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.info-card-link:hover .info-card {
+    transform: translateY(-3px);
+    cursor: pointer;
+}
+
 @keyframes blink {
   50% {
     opacity: 0;

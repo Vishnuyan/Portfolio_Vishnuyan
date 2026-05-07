@@ -1,28 +1,55 @@
-// ===== Contact Form Handler (Formspree) =====
-if (document.getElementById('contactForm')) {
-  const form = document.getElementById('contactForm');
-  
-  form.addEventListener('submit', function(e) {
-    const btn = form.querySelector('.send-btn');
+// ===== EmailJS Configuration =====
+const EMAILJS_PUBLIC_KEY = 'rTzvuuWtWnl9MTViF';
+const EMAILJS_SERVICE_ID = 'service_jze4bti';
+const EMAILJS_TEMPLATE_ID = 'template_rtxk8qo';
+
+if (typeof emailjs !== 'undefined') {
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+}
+
+// ===== Contact Form Handler =====
+const contactForm = document.getElementById('contactForm');
+
+if (contactForm) {
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const btn = contactForm.querySelector('.send-btn');
     const originalText = btn.textContent;
-    const originalStyle = btn.style.background;
-    
+
+    if (typeof emailjs === 'undefined') {
+      btn.textContent = '✗ EmailJS not loaded';
+      btn.disabled = true;
+      console.error('EmailJS library is not available.');
+      return;
+    }
+
     btn.textContent = 'Sending...';
     btn.disabled = true;
-    
-    // Wait for form response
-    setTimeout(() => {
+
+    try {
+      await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, contactForm);
+
       btn.textContent = '✓ Message Sent!';
       btn.style.background = 'linear-gradient(135deg, #00ff88, #00ffaa)';
-      
+      contactForm.reset();
+
       setTimeout(() => {
         btn.textContent = originalText;
         btn.disabled = false;
-        btn.style.background = originalStyle;
-      }, 2000);
-    }, 1000);
-    
-    console.log('📧 Form submitted to Formspree');
+        btn.style.background = '';
+      }, 3000);
+    } catch (error) {
+      console.error('EmailJS error:', error);
+      btn.textContent = '✗ Failed - Try Again';
+      btn.style.background = 'linear-gradient(135deg, #ff6b6b, #ee5a6f)';
+
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.disabled = false;
+        btn.style.background = '';
+      }, 3000);
+    }
   });
 }
 
